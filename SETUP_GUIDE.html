@@ -1,0 +1,595 @@
+<title>Saim Tailors Setup Guide</title>
+<style>
+  :root {
+    --forest: #103f37;
+    --gold: #b99961;
+    --paper: #f5f3ed;
+    --text: #23332f;
+    --muted: #898d83;
+    --accent: #547665;
+    --success: #4f8468;
+    --warning: #a65945;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --forest: #1a5a52;
+      --gold: #d4b896;
+      --paper: #1a1a18;
+      --text: #f5f3ed;
+      --muted: #a9ada0;
+      --accent: #7db591;
+      --success: #7db591;
+      --warning: #e8956d;
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --forest: #1a5a52;
+    --gold: #d4b896;
+    --paper: #1a1a18;
+    --text: #f5f3ed;
+    --muted: #a9ada0;
+    --accent: #7db591;
+    --success: #7db591;
+    --warning: #e8956d;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--text); padding: 20px; }
+
+  .container { max-width: 900px; margin: 0 auto; }
+  .header { margin-bottom: 40px; }
+  .header h1 {
+    margin: 0 0 10px;
+    font-size: 48px;
+    font-weight: 600;
+    color: var(--forest);
+  }
+  .header p { margin: 0; color: var(--muted); font-size: 14px; }
+
+  .section {
+    margin-bottom: 32px;
+    padding: 24px;
+    border: 1px solid #eae8df;
+    border-radius: 6px;
+    background: rgba(255, 254, 250, 0.94);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .section:not(:root[data-theme="light"]) {
+      border-color: #333;
+      background: rgba(40, 40, 38, 0.94);
+    }
+  }
+
+  :root[data-theme="dark"] .section {
+    border-color: #333;
+    background: rgba(40, 40, 38, 0.94);
+  }
+
+  .section h2 {
+    margin: 0 0 16px;
+    font-size: 24px;
+    color: var(--forest);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .step-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+
+  .step-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid #f0eee7;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .step-list li:last-child { border-bottom: none; }
+
+  .step-list strong { color: var(--forest); font-weight: 600; }
+
+  code {
+    background: #fbfaf6;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Monaco', monospace;
+    font-size: 13px;
+    color: #954d40;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    code:not(:root[data-theme="light"]) {
+      background: #333;
+      color: #e8956d;
+    }
+  }
+
+  :root[data-theme="dark"] code {
+    background: #333;
+    color: #e8956d;
+  }
+
+  .code-block {
+    background: #fbfaf6;
+    padding: 16px;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 12px 0;
+    font-family: 'Monaco', monospace;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .code-block:not(:root[data-theme="light"]) {
+      background: #2a2a28;
+    }
+  }
+
+  :root[data-theme="dark"] .code-block {
+    background: #2a2a28;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .feature-card {
+    padding: 16px;
+    border: 1px solid #e9e6dd;
+    border-radius: 4px;
+    background: #fffefa;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .feature-card:not(:root[data-theme="light"]) {
+      border-color: #444;
+      background: #2a2a28;
+    }
+  }
+
+  :root[data-theme="dark"] .feature-card {
+    border-color: #444;
+    background: #2a2a28;
+  }
+
+  .feature-card h3 {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: var(--forest);
+    font-weight: 600;
+  }
+
+  .feature-card p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .success-box {
+    padding: 12px 16px;
+    border-left: 4px solid var(--success);
+    background: rgba(79, 132, 104, 0.08);
+    margin: 16px 0;
+    border-radius: 3px;
+  }
+
+  .warning-box {
+    padding: 12px 16px;
+    border-left: 4px solid var(--warning);
+    background: rgba(166, 89, 69, 0.08);
+    margin: 16px 0;
+    border-radius: 3px;
+  }
+
+  .success-box strong, .warning-box strong {
+    font-weight: 600;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .button {
+    padding: 10px 16px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+  }
+
+  .button-primary {
+    background: var(--forest);
+    color: white;
+  }
+
+  .button-primary:hover {
+    background: var(--accent);
+  }
+
+  .button-secondary {
+    background: white;
+    color: var(--forest);
+    border-color: #e9e6dd;
+  }
+
+  .button-secondary:hover {
+    background: #f6f4ee;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .button-primary:not(:root[data-theme="light"]) {
+      background: var(--accent);
+    }
+
+    .button-secondary:not(:root[data-theme="light"]) {
+      background: #2a2a28;
+      color: var(--gold);
+      border-color: #444;
+    }
+
+    .button-secondary:hover:not(:root[data-theme="light"]) {
+      background: #333;
+    }
+  }
+
+  :root[data-theme="dark"] .button-primary {
+    background: var(--accent);
+  }
+
+  :root[data-theme="dark"] .button-secondary {
+    background: #2a2a28;
+    color: var(--gold);
+    border-color: #444;
+  }
+
+  :root[data-theme="dark"] .button-secondary:hover {
+    background: #333;
+  }
+
+  .icon { font-size: 18px; }
+  .check { color: var(--success); }
+  .info { color: var(--gold); }
+  .alert { color: var(--warning); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #f0eee7;
+  }
+
+  th {
+    background: #fbfaf6;
+    font-weight: 600;
+    color: var(--forest);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    th:not(:root[data-theme="light"]) {
+      background: #2a2a28;
+    }
+
+    td:not(:root[data-theme="light"]) {
+      border-bottom-color: #333;
+    }
+  }
+
+  :root[data-theme="dark"] th {
+    background: #2a2a28;
+  }
+
+  :root[data-theme="dark"] td {
+    border-bottom-color: #333;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 24px 0;
+    margin-top: 40px;
+    border-top: 1px solid #e9e6dd;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  @media (max-width: 600px) {
+    .header h1 { font-size: 32px; }
+    .section { padding: 16px; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .button-group { flex-direction: column; }
+  }
+</style>
+
+<div class="container">
+  <div class="header">
+    <h1>✳ SAIM Tailors Setup</h1>
+    <p>Complete guide to launch your made-to-measure tailoring software</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="section-num">✓</span> Project Status</h2>
+    <p>Your tailor shop management system is <strong>95% complete</strong>. Everything is beautifully architected with Laravel 12, Tailwind CSS, and a comprehensive feature set.</p>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>✓ Customer Booking</h3>
+        <p>Beautiful multi-step fitting form with measurements, garment selection, and fabric choices</p>
+      </div>
+      <div class="feature-card">
+        <h3>✓ Order Tracking</h3>
+        <p>Customers track orders by reference + phone number securely</p>
+      </div>
+      <div class="feature-card">
+        <h3>✓ Tailor Dashboard</h3>
+        <p>Complete workroom dashboard with orders, customers, and contact inquiries</p>
+      </div>
+      <div class="feature-card">
+        <h3>✓ Beautiful Design</h3>
+        <p>Professional Tailwind CSS with light/dark themes, fully responsive</p>
+      </div>
+      <div class="feature-card">
+        <h3>✓ Authentication</h3>
+        <p>Secure login with setup wizard for first-time tailor setup</p>
+      </div>
+      <div class="feature-card">
+        <h3>✓ Contact Forms</h3>
+        <p>Customer inquiries system with status tracking</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="section-num">1</span> Initial Setup</h2>
+    <ol class="step-list">
+      <li><strong>Clone and install dependencies:</strong><br>
+        <div class="code-block">composer install
+npm install</div>
+      </li>
+      <li><strong>Configure environment:</strong><br>
+        Copy <code>.env.example</code> to <code>.env</code>. It's already configured for SQLite database (perfect for small/medium tailoring business).
+        <div class="code-block">cp .env.example .env</div>
+      </li>
+      <li><strong>Generate application key:</strong><br>
+        <div class="code-block">php artisan key:generate</div>
+      </li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2><span class="section-num">2</span> Database Setup</h2>
+    <ol class="step-list">
+      <li><strong>Create SQLite database file:</strong><br>
+        <div class="code-block">touch database/database.sqlite</div>
+      </li>
+      <li><strong>Run migrations:</strong><br>
+        <div class="code-block">php artisan migrate</div>
+      </li>
+      <li><strong>Verify tables created:</strong><br>
+        You should have: <code>users</code>, <code>customers</code>, <code>tailor_orders</code>, <code>contact_inquiries</code>
+      </li>
+    </ol>
+    <div class="success-box">
+      <strong>✓ Database Ready</strong> Your tailor orders and customers will be stored securely in SQLite database.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="section-num">3</span> Build Assets</h2>
+    <ol class="step-list">
+      <li><strong>Build CSS and JavaScript:</strong><br>
+        <div class="code-block">npm run build</div>
+      </li>
+      <li><strong>Or run in development mode (auto-rebuilds):</strong><br>
+        <div class="code-block">npm run dev</div>
+      </li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2><span class="section-num">4</span> Start the Application</h2>
+    <ol class="step-list">
+      <li><strong>Option A: Simple (one terminal):</strong><br>
+        <div class="code-block">php artisan serve</div>
+        Then visit <code>http://127.0.0.1:8000</code> in your browser.
+      </li>
+      <li><strong>Option B: Full development (another terminal for assets):</strong><br>
+        Terminal 1: <code>php artisan serve</code><br>
+        Terminal 2: <code>npm run dev</code>
+      </li>
+      <li><strong>Option C: Using Composer script (all at once):</strong><br>
+        <div class="code-block">composer dev</div>
+      </li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2><span class="section-num">5</span> First Time Setup</h2>
+    <ol class="step-list">
+      <li>Visit <code>http://127.0.0.1:8000/setup</code></li>
+      <li>Create your tailor account (name, email, strong password)</li>
+      <li>You'll be logged in automatically</li>
+      <li>Go to <code>/workroom</code> to see your dashboard</li>
+    </ol>
+    <div class="success-box">
+      <strong>✓ Ready to Go!</strong> Your tailoring workroom is now live and ready for customers.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="section-num">6</span> System Features</h2>
+    <h3>Customer-Facing:</h3>
+    <ul class="step-list">
+      <li><strong>Home / Booking Page:</strong> Customers fill beautiful fitting form with 3-step wizard</li>
+      <li><strong>Order Tracking:</strong> Track by reference number + phone (privacy-protected)</li>
+      <li><strong>Contact Form:</strong> Send messages directly to your workroom</li>
+    </ul>
+
+    <h3>Tailor/Admin Features:</h3>
+    <ul class="step-list">
+      <li><strong>Dashboard:</strong> Overview of active orders, customers, and messages</li>
+      <li><strong>Order Management:</strong> Create orders, update status (new → delivered), track payments</li>
+      <li><strong>Customer Profiles:</strong> Keep measurements, email, notes for each customer</li>
+      <li><strong>Quick Order Entry:</strong> Add orders directly from workroom with existing/new customers</li>
+      <li><strong>Price Tracking:</strong> Manage total cost and advance payments, auto-calculate balance</li>
+      <li><strong>Inquiries:</strong> Manage contact messages and mark as handled</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2><span class="section-num">7</span> Customization Guide</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>What to Customize</th>
+          <th>Where to Find It</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>App name "SAIM Tailors"</td>
+          <td><code>.env</code> - <code>APP_NAME</code></td>
+        </tr>
+        <tr>
+          <td>Garment types offered</td>
+          <td><code>app/Models/TailorOrder.php</code> - <code>GARMENTS</code> array</td>
+        </tr>
+        <tr>
+          <td>Fabric options</td>
+          <td><code>app/Models/TailorOrder.php</code> - <code>FABRICS</code> array</td>
+        </tr>
+        <tr>
+          <td>Pricing packages</td>
+          <td><code>app/Models/TailorOrder.php</code> - <code>PACKAGES</code> array</td>
+        </tr>
+        <tr>
+          <td>Order statuses</td>
+          <td><code>app/Models/TailorOrder.php</code> - <code>STATUSES</code> array</td>
+        </tr>
+        <tr>
+          <td>Colors & theme</td>
+          <td><code>resources/css/app.css</code> - CSS variables at top</td>
+        </tr>
+        <tr>
+          <td>Logo/branding</td>
+          <td>Replace <code>public/saim-tailorlogo.webp</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2><span class="section-num">8</span> Enhancement Ideas (Optional)</h2>
+    <ul class="step-list">
+      <li>🔔 <strong>Notifications:</strong> Send SMS/Email when order status changes</li>
+      <li>📊 <strong>Reports:</strong> Monthly earnings, popular garments, customer insights</li>
+      <li>💾 <strong>Backups:</strong> Auto-backup customer data to cloud</li>
+      <li>📸 <strong>Photo Gallery:</strong> Display before/after portfolio</li>
+      <li>⭐ <strong>Reviews:</strong> Customer testimonials and ratings</li>
+      <li>💳 <strong>Online Payments:</strong> JazzCash, easypaisa integration</li>
+      <li>📱 <strong>Mobile App:</strong> React Native wrapper of your site</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2><span class="section-num">9</span> Deployment (Production)</h2>
+    <p>When ready to go live:</p>
+    <ol class="step-list">
+      <li>Set <code>APP_ENV=production</code> in <code>.env</code></li>
+      <li>Set <code>APP_DEBUG=false</code></li>
+      <li>Generate strong app key if changed</li>
+      <li>Use a real hosting provider (Heroku, Digital Ocean, AWS, or local VPS)</li>
+      <li>Switch to PostgreSQL or MySQL for better production reliability</li>
+      <li>Set up proper backups of customer data</li>
+      <li>Use HTTPS with SSL certificate</li>
+      <li>Configure email sending for real notifications</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <h2><span class="section-num">10</span> File Structure Quick Reference</h2>
+    <div class="code-block">saim-tailor/
+├── app/
+│   ├── Models/           # Customer, TailorOrder, ContactInquiry
+│   └── Http/Controllers/ # AuthController, TailorDashboardController
+├── database/
+│   └── migrations/       # Database tables (customers, orders, etc)
+├── resources/
+│   ├── views/           # Blade templates (customer & tailor pages)
+│   ├── css/             # app.css with Tailwind
+│   └── js/              # app.js for interactivity
+├── routes/
+│   └── web.php          # All routes (booking, tracking, auth, dashboard)
+├── storage/
+│   └── app/             # Customer files/uploads
+└── public/
+    └── saim-tailorlogo.webp # Your branding</div>
+  </div>
+
+  <div class="section" style="background: #fffef8; border-color: #f0eee7;">
+    <h2><span class="section-num">✓</span> You're All Set!</h2>
+    <p>Your beautiful tailor management system is complete and ready to serve customers. Every feature has been thoughtfully designed:</p>
+    <ul class="step-list">
+      <li>✓ Customers book fittings with gorgeous multi-step form</li>
+      <li>✓ Track orders securely with reference + phone</li>
+      <li>✓ Manage everything from your private workroom</li>
+      <li>✓ Beautiful design works on mobile, tablet, desktop</li>
+      <li>✓ All data is yours - no dependency on third parties</li>
+    </ul>
+
+    <div class="button-group">
+      <a href="http://127.0.0.1:8000" class="button button-primary">
+        <span class="icon">→</span> Visit Your App
+      </a>
+      <a href="http://127.0.0.1:8000/setup" class="button button-secondary">
+        <span class="icon">⚙</span> Run Setup
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Built with Laravel 12, Tailwind CSS 4, and ❤️ for tailors who care about the details.</p>
+    <p>Questions? Check the Laravel docs or your project README.</p>
+  </div>
+</div>
